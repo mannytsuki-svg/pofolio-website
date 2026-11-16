@@ -1,0 +1,35 @@
+.specular-frame {
+  position: relative;
+  --light-angle: -45deg;
+  --light-level: .35;
+  --rim-light: conic-gradient(
+    from calc(var(--light-angle) - 89deg),
+    transparent, #206fef 65deg 113deg, transparent 178deg,
+    transparent 180deg, #206fef73 245deg 293deg, transparent 358deg
+  );
+  border-radius: 24px;
+}
+
+.specular-frame__glow, .specular-frame__rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.specular-frame__rim {
+  padding: 1px;
+  background: #abc1f799;
+  background-image: var(--rim-light);
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: calc(.45 + var(--light-level) * .55);
+  filter: brightness(1.55);
+  transition: opacity .2s ease;
+}
+
+.specular-frame__glow {
+  box-shadow: inset 0 0 14px #206fef8c, 0 0 12px #206fef66;
+  mask-image: var(--rim-light);
+  opacity: min(1, calc(var(--light-level) * 1.55));
+  transition: opacity .2s ease;
+}
